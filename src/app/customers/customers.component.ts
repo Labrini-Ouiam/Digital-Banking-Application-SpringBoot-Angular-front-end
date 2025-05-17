@@ -5,6 +5,7 @@ import {CustomersService} from '../services/customers.service';
 import {catchError, map, Observable, throwError} from 'rxjs';
 import {Customer} from '../model/cutomer.model';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-customers',
@@ -24,7 +25,7 @@ export class CustomersComponent implements OnInit {
   errorMessage!: object;
   searchformGroup : FormGroup | undefined; // FormGroup to manage form data
 
-  constructor( private costomerService :CustomersService ,private fb :FormBuilder) {}// Inject the CustomersService to fetch customer data
+  constructor( private costomerService :CustomersService ,private fb :FormBuilder,private router:Router) {}// Inject the CustomersService to fetch customer data
 
   ngOnInit() {
     this.searchformGroup=this.fb.group({
@@ -69,6 +70,10 @@ export class CustomersComponent implements OnInit {
           alert("Error while deleting customer");
         }
       });
+  }
+
+  handleCustomerAccounts(id: number) {
+    this.router.navigateByUrl("/customer-accounts/"+id); // Navigate to the customer accounts page with the selected customer ID
   }
 
   // ngOnInit() {
